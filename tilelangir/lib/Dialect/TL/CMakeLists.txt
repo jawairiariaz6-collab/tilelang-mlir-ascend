@@ -1,0 +1,7 @@
+add_library(tilelangir_dialect_tl STATIC
+  TLIRDialect.cpp
+  TLIROps.cpp
+)
+set_target_properties(tilelangir_dialect_tl PROPERTIES POSITION_INDEPENDENT_CODE ON)
+add_dependencies(tilelangir_dialect_tl tlir_dialect_tl_incgen)
+target_link_libraries(tilelangir_dialect_tl PUBLIC tilelangir_headers)

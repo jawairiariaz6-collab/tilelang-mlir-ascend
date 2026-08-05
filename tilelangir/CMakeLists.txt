@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.18)
 
 project(TileLangIR LANGUAGES CXX)
 
+# Prebuilt BiShengIR/MLIR static libs are built with RTTI disabled (LLVM's
+# default). Our dialect/transform code links directly against those .a
+# files (not through a shared lib with lazy binding), so it must match
+# that ABI or the linker fails to find typeinfo/vtable symbols for base
+# classes like mlir::Dialect.
+add_compile_options(-fno-rtti)
+
 list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 include(AddTileLangIR)
 
